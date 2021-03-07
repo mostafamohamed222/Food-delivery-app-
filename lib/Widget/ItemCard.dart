@@ -14,7 +14,7 @@ class ItemCard extends StatefulWidget {
       @required this.price,
       @required this.title,
       @required this.url,
-      this.pressed = false});
+      this.pressed});
 
   @override
   _ItemCardState createState() => _ItemCardState();

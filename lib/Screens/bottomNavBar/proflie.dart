@@ -72,7 +72,7 @@ class _ProflieState extends State<Proflie> {
             icon: Icons.date_range,
           ),
           ProflieItem(
-            text: "19/07/1997",
+            text: "ُenglish",
             icon: Icons.language,
           ),
           ProflieItem(

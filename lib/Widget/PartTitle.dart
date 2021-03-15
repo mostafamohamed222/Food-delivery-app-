@@ -1,3 +1,4 @@
+import 'package:FoodDeliveryApp/Screens/Result.dart';
 import 'package:flutter/material.dart';
 
 class PartTitle extends StatelessWidget {
@@ -24,6 +25,18 @@ class PartTitle extends StatelessWidget {
           color: Colors.grey,
         ),
       ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) {
+              return ResultScreen(
+                pageName: partTitle,
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

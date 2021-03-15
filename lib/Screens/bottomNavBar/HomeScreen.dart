@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             PartTitle("Featuread Iteam"),
             Container(
-              height: 270,
+              height: MediaQuery.of(context).size.height / 2.5,
               child: scrollItem(
                 350,
                 170.0,
@@ -72,10 +72,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             PartTitle("Trending"),
             Container(
-              height: 220,
+              height: MediaQuery.of(context).size.height / 2.9,
               child: scrollItem(
-                170,
-                120,
+                MediaQuery.of(context).size.height / 3,
+                140,
+              ),
+            ),
+            PartTitle("hot offer"),
+            Container(
+              height: MediaQuery.of(context).size.height / 2.9,
+              child: scrollItem(
+                MediaQuery.of(context).size.height / 3,
+                140,
               ),
             ),
           ],

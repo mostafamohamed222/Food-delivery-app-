@@ -6,6 +6,8 @@ import 'package:FoodDeliveryApp/Screens/bottomNavBar/shoppingcart.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {
+  static String id = "/bottomNavBar";
+
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
 }

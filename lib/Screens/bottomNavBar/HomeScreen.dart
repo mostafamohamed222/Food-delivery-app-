@@ -3,12 +3,9 @@ import 'package:FoodDeliveryApp/Widget/Loading.dart';
 import 'package:FoodDeliveryApp/Widget/PartTitle.dart';
 import 'package:FoodDeliveryApp/model/MealsControllers.dart';
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  final MealsContorller meals;
-  HomeScreen(this.meals);
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -16,7 +13,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    widget.meals.getMeals();
+    // final meals = Provider.of<MealsContorller>(context, listen: false);
+    // meals.getMeals();
     super.initState();
   }
 
@@ -72,27 +70,35 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   scrollItem(double itemWidth, double imageHight) {
-    return ScopedModelDescendant(
-      builder: (context, child, MealsContorller meals) {
-        if (meals.isGetMealsLoading == true) {
+    return Builder(
+      builder: (BuildContext) {
+        if (Provider.of<MealsContorller>(context).isGetMealsLoading) {
           return Loading();
-        } else if (meals.allMeals.isEmpty) {
+        } else if (Provider.of<MealsContorller>(context).allMeals.isEmpty) {
           return Center(
-            child: Text("therw is not meals now "),
+            child: Text("no meals here"),
           );
         } else {
           return ListView.builder(
-            itemCount: meals.allMeals.length,
+            scrollDirection: Axis.horizontal,
+            itemCount: Provider.of<MealsContorller>(context).allMeals.length,
             itemBuilder: (context, index) {
               return ItemCard(
                   imageHight: imageHight,
                   itemWidth: itemWidth,
-                  price: meals.allMeals[index].price,
-                  title: meals.allMeals[index].name,
-                  url: meals.allMeals[index].image,
-                  pressed: meals.allMeals[index].fav);
+                  price: Provider.of<MealsContorller>(context)
+                      .allMeals[index]
+                      .price,
+                  title: Provider.of<MealsContorller>(context)
+                      .allMeals[index]
+                      .name,
+                  url: Provider.of<MealsContorller>(context)
+                      .allMeals[index]
+                      .image,
+                  pressed: Provider.of<MealsContorller>(context)
+                      .allMeals[index]
+                      .fav);
             },
-            scrollDirection: Axis.horizontal,
           );
         }
       },

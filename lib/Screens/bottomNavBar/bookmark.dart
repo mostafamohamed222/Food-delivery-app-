@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
-class BookMark extends StatefulWidget {
+class Sell extends StatefulWidget {
+  Sell({Key key}) : super(key: key);
+
   @override
-  _BookMarkState createState() => _BookMarkState();
+  _SellState createState() => _SellState();
 }
 
-class _BookMarkState extends State<BookMark> {
+class _SellState extends State<Sell> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: null,
+    );
   }
 }

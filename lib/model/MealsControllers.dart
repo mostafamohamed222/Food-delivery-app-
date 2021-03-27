@@ -12,6 +12,13 @@ class MealsContorller with ChangeNotifier {
   List<MealsModel> _allMeals = [];
   List<MealsModel> get allMeals => _allMeals;
 
+  List<MealsModel> _cartItems = [];
+  List<MealsModel> get cartItems => _cartItems;
+
+  void addToCart(var id) {
+    _cartItems.add(getById(id));
+  }
+
   resetMeals() {
     _allMeals = [];
   }
@@ -56,5 +63,14 @@ class MealsContorller with ChangeNotifier {
 
     _isAddMealsLoading = false;
     notifyListeners();
+  }
+
+  MealsModel getById(var id) {
+    for (var index in _allMeals) {
+      if (id == index.id) {
+        return index;
+      }
+    }
+    return null;
   }
 }

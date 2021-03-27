@@ -4,6 +4,7 @@ import 'package:FoodDeliveryApp/Widget/PartTitle.dart';
 import 'package:FoodDeliveryApp/model/MealsControllers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:FoodDeliveryApp/Screens/MealScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -83,21 +84,30 @@ class _HomeScreenState extends State<HomeScreen> {
             scrollDirection: Axis.horizontal,
             itemCount: Provider.of<MealsContorller>(context).allMeals.length,
             itemBuilder: (context, index) {
-              return ItemCard(
-                  imageHight: imageHight,
-                  itemWidth: itemWidth,
-                  price: Provider.of<MealsContorller>(context)
-                      .allMeals[index]
-                      .price,
-                  title: Provider.of<MealsContorller>(context)
-                      .allMeals[index]
-                      .name,
-                  url: Provider.of<MealsContorller>(context)
-                      .allMeals[index]
-                      .image,
-                  pressed: Provider.of<MealsContorller>(context)
-                      .allMeals[index]
-                      .fav);
+              return InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return MealsScreen(Provider.of<MealsContorller>(context)
+                        .allMeals[index]
+                        .id);
+                  }));
+                },
+                child: ItemCard(
+                    imageHight: imageHight,
+                    itemWidth: itemWidth,
+                    price: Provider.of<MealsContorller>(context)
+                        .allMeals[index]
+                        .price,
+                    title: Provider.of<MealsContorller>(context)
+                        .allMeals[index]
+                        .name,
+                    url: Provider.of<MealsContorller>(context)
+                        .allMeals[index]
+                        .image,
+                    pressed: Provider.of<MealsContorller>(context)
+                        .allMeals[index]
+                        .fav),
+              );
             },
           );
         }

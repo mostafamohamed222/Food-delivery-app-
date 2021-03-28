@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       create: (_) => MealsContorller(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: BottomNavBar.id,
+        initialRoute: '/',
         routes: {
           '/': (context) => SignUp(),
           "/signIn": (context) => SiginScreen(),

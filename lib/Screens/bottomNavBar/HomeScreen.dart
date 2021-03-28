@@ -87,6 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
+                  Provider.of<MealsContorller>(context, listen: false)
+                      .resetQuantity();
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return MealsScreen(Provider.of<MealsContorller>(context)
                         .allMeals[index]

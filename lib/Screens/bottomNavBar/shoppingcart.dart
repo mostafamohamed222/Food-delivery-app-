@@ -11,12 +11,6 @@ class ShoppingCart extends StatefulWidget {
 
 class _ShoppingCartState extends State<ShoppingCart> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
@@ -124,7 +118,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                         width: MediaQuery.of(context).size.width * .6,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: Colors.pink,
+                          color: Colors.deepOrange,
                         ),
                         child: FlatButton(
                           onPressed: () {},

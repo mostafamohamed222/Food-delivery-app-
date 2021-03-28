@@ -3,29 +3,38 @@ import 'package:FoodDeliveryApp/model/MealsModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MealsScreen extends StatelessWidget {
-  var id;
+class MealsScreen extends StatefulWidget {
+  final String id;
   MealsScreen(this.id);
+
+  @override
+  _MealsScreenState createState() => _MealsScreenState();
+}
+
+class _MealsScreenState extends State<MealsScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    MealsModel meal = Provider.of<MealsContorller>(context).getById(id);
+    MealsModel meal = Provider.of<MealsContorller>(context).getById(widget.id);
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        leading: Padding(
-          padding: EdgeInsets.all(5),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Colors.white,
-            ),
-            child: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(Icons.arrow_back_ios),
-            ),
+        centerTitle: true,
+        title: Text(
+          meal.name,
+          style: TextStyle(
+            color: Colors.black,
           ),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios),
         ),
         iconTheme: IconThemeData(
           color: Colors.black,
@@ -36,7 +45,7 @@ class MealsScreen extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width * .95,
+            width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 3.5,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -46,38 +55,76 @@ class MealsScreen extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            title: Text(
-              meal.name,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(top: 5),
+              decoration: BoxDecoration(
+                color: Colors.white,
               ),
-            ),
-            trailing: Text(
-              meal.price.toString() + ' \$',
-              style: TextStyle(
-                fontSize: 24,
-              ),
-            ),
-          ),
-          
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: FlatButton(
-              minWidth: MediaQuery.of(context).size.width,
-              height: 50,
-              color: Colors.black,
-              onPressed: () {
-                Provider.of<MealsContorller>(context, listen: false)
-                    .addToCart(meal.id);
-              },
-              child: Text(
-                "add to cart",
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                ),
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text("Price :"),
+                    tileColor: Colors.deepOrange,
+                    trailing: Text(
+                      meal.price.toString(),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 9,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Provider.of<MealsContorller>(context, listen: false)
+                              .decrementQuantity();
+                        },
+                        child: Text(
+                          "-",
+                          style: TextStyle(color: Colors.black, fontSize: 40),
+                        ),
+                      ),
+                      Text(
+                        Provider.of<MealsContorller>(context)
+                            .quantity
+                            .toString(),
+                        style: TextStyle(color: Colors.black, fontSize: 40),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Provider.of<MealsContorller>(context, listen: false)
+                              .incrementQuantity();
+                        },
+                        child: Text(
+                          "+",
+                          style: TextStyle(color: Colors.black, fontSize: 40),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.deepOrange,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        Provider.of<MealsContorller>(context, listen: false)
+                            .addToCart(
+                                meal.id,
+                                Provider.of<MealsContorller>(context,
+                                        listen: false)
+                                    .quantity);
+                      },
+                      child: Text(
+                        "add to cart",
+                        style: TextStyle(color: Colors.black, fontSize: 24),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           )

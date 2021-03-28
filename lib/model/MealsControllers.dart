@@ -15,11 +15,33 @@ class MealsContorller with ChangeNotifier {
   List<MealsModel> _cartItems = [];
   List<MealsModel> get cartItems => _cartItems;
 
-  void addToCart(var id) {
+  int _quantity = 0;
+  int get quantity => _quantity;
+
+  void incrementQuantity() {
+    _quantity++;
+    notifyListeners();
+  }
+
+  void decrementQuantity() {
+    if (_quantity == 0) {
+      return;
+    }
+    _quantity--;
+    notifyListeners();
+  }
+
+  void resetQuantity() {
+    _quantity = 0;
+    notifyListeners();
+  }
+
+  void addToCart(var id, int numberOfMeals) {
     MealsModel meal = getById(id);
     for (MealsModel i in _cartItems) {
       if (i.id == meal.id) {
-        i.numberOfMeals++;
+        i.numberOfMeals += numberOfMeals;
+        print("find it");
         return;
       }
     }
@@ -30,8 +52,9 @@ class MealsContorller with ChangeNotifier {
           image: meal.image,
           name: meal.name,
           price: meal.price,
-          numberOfMeals: 1),
+          numberOfMeals: numberOfMeals),
     );
+    notifyListeners();
   }
 
   double cartItemPrice() {

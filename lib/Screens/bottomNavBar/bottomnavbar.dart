@@ -31,6 +31,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        showUnselectedLabels: true,
+        fixedColor: Colors.blue,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -54,7 +56,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ],
         unselectedItemColor: Colors.black,
-        selectedItemColor: Colors.blue,
         currentIndex: pageIndex,
         onTap: (index) {
           setState(() {

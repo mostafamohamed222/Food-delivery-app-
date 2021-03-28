@@ -61,6 +61,7 @@ class MealsScreen extends StatelessWidget {
               ),
             ),
           ),
+          
           Align(
             alignment: Alignment.bottomLeft,
             child: FlatButton(

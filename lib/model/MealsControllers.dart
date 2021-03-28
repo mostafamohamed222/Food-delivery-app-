@@ -16,7 +16,30 @@ class MealsContorller with ChangeNotifier {
   List<MealsModel> get cartItems => _cartItems;
 
   void addToCart(var id) {
-    _cartItems.add(getById(id));
+    MealsModel meal = getById(id);
+    for (MealsModel i in _cartItems) {
+      if (i.id == meal.id) {
+        i.numberOfMeals++;
+        return;
+      }
+    }
+    _cartItems.add(
+      MealsModel(
+          id: meal.id,
+          fav: meal.fav,
+          image: meal.image,
+          name: meal.name,
+          price: meal.price,
+          numberOfMeals: 1),
+    );
+  }
+
+  double cartItemPrice() {
+    double ret = 0;
+    for (var i in _cartItems) {
+      ret += (i.price * i.numberOfMeals);
+    }
+    return ret;
   }
 
   resetMeals() {

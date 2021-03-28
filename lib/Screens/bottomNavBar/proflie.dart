@@ -12,24 +12,15 @@ class _ProflieState extends State<Proflie> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        title: Row(
-          children: [
-            Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Text(
-              "Profile",
-              style: TextStyle(
-                color: Colors.black,
-              ),
-            ),
-          ],
+        centerTitle: true,
+        title: Text(
+          "Profile",
+          style: TextStyle(
+            color: Colors.black,
+          ),
         ),
       ),
       body: Column(

@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => MealsContorller(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: BottomNavBar.id,
         routes: {
           '/': (context) => SignUp(),

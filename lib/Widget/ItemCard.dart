@@ -6,6 +6,7 @@ class ItemCard extends StatefulWidget {
   final String url;
   final String title;
   final double price;
+
   bool pressed;
 
   ItemCard({

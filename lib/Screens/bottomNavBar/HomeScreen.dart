@@ -14,8 +14,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    // final meals = Provider.of<MealsContorller>(context, listen: false);
-    // meals.getMeals();
+    if (Provider.of<MealsContorller>(context, listen: false).allMeals.length ==
+        0) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (timeStamp) {
+          Provider.of<MealsContorller>(context, listen: false).fetchData();
+        },
+      );
+    }
     super.initState();
   }
 

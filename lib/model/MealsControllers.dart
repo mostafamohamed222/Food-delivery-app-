@@ -1,6 +1,8 @@
 import 'package:FoodDeliveryApp/model/MealsModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class MealsContorller with ChangeNotifier {
   bool _isGetMealsLoading = false;
@@ -36,6 +38,29 @@ class MealsContorller with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> fetchData() async {
+    const String url =
+        "https://fooddeliveryapptest-ef073-default-rtdb.firebaseio.com/meals.json";
+    _isGetMealsLoading = true;
+    notifyListeners();
+    try {
+      http.Response res = await http.get(url);
+      final data = json.decode(res.body) as Map<String, dynamic>;
+      data.forEach((key, value) {
+        final MealsModel _newMeal = MealsModel(
+          id: key,
+          image: value['image'],
+          name: value['title'],
+          price: value['price'],
+          fav: value['fav'],
+        );
+        _allMeals.add(_newMeal);
+      });
+      _isGetMealsLoading = false;
+      notifyListeners();
+    } catch (e) {}
+  }
+
   void addToCart(var id, int numberOfMeals) {
     MealsModel meal = getById(id);
     for (MealsModel i in _cartItems) {
@@ -67,31 +92,6 @@ class MealsContorller with ChangeNotifier {
 
   resetMeals() {
     _allMeals = [];
-  }
-
-  getMeals() async {
-    _isGetMealsLoading = true;
-    notifyListeners();
-
-    Firestore.instance
-        .collection("meals")
-        .getDocuments()
-        .then((QuerySnapshot shot) {
-      shot.documents.forEach((i) {
-        final MealsModel _newMeal = MealsModel(
-          id: i.documentID,
-          image: i['image'],
-          name: i['title'],
-          price: i['price'],
-          fav: i['fav'],
-        );
-        _allMeals.add(_newMeal);
-        notifyListeners();
-      });
-    });
-
-    _isGetMealsLoading = false;
-    notifyListeners();
   }
 
   addMeal(String title, double price, String image, bool fav) async {
